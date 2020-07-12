@@ -22,6 +22,7 @@
                 1>  
    
 
+
 TheToyRobotSimulator -help
 
 Below output will be shown:
@@ -46,10 +47,11 @@ Below output will be shown:
 
 
                 1>                                                                           
-                
+     
+     
 TheToyRobotSimulator -help -nocase
 
-Below outwill will be shown:
+Below output will be shown:
 
                 **********************************************************************
                 TheToyRobotSimulator.exe [-help] [-nocase]
