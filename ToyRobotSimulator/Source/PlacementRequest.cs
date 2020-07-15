@@ -1,6 +1,6 @@
 namespace TheToyRobotSimulator
 {
-    public class PlacementRequest
+    public class PlacementRequest : IPlacementRequest
     {
         public int? X { get; set; }
 

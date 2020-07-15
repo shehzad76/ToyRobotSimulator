@@ -10,11 +10,11 @@ namespace UnitTestProject1
     {
         private readonly ITheRobot _theRobot;
         private readonly IRobotInteractiveCommandHandler _robotCommandHandler;
-
+        private IPlacementRequest placementRequest;
         public TheToyRobotSimulatorTests()
         {
             _theRobot = new TheRobot();
-            _robotCommandHandler = new RobotInteractiveCommandHandler(_theRobot);
+            _robotCommandHandler = new RobotInteractiveCommandHandler(new string[] {});
         }
         /// <summary>
         /// Invalid placement
@@ -22,7 +22,13 @@ namespace UnitTestProject1
         [TestMethod]
         public void InvalidPlacementShouldNotOccur()
         {
-            var placed = _theRobot.Place(new PlacementRequest { X = 10, Y = 10, F = RobotDirection.NORTH });
+            placementRequest = new PlacementRequest
+            {
+                X = 10,
+                Y = 10,
+                F = RobotDirection.NORTH
+            };
+            var placed = _theRobot.Place(placementRequest);
             Assert.IsFalse(placed);
         }
 
@@ -32,7 +38,13 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidPlacementShouldOccur()
         {
-            var placed = _theRobot.Place(new PlacementRequest { X = 0, Y = 1, F = RobotDirection.NORTH });
+            placementRequest = new PlacementRequest
+            {
+                X = 0,
+                Y = 1,
+                F = RobotDirection.NORTH
+            };
+            var placed = _theRobot.Place(placementRequest);
             Assert.IsTrue(placed);
         }
 
@@ -42,10 +54,17 @@ namespace UnitTestProject1
         [TestMethod]
         public void InvalidMoveShouldNotOccur()
         {
+            placementRequest = new PlacementRequest
+            {
+                X = 4,
+                Y = 4,
+                F = RobotDirection.NORTH
+            };
+
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                _theRobot.Place(new PlacementRequest { X = 4, Y = 4, F = RobotDirection.NORTH });
+                _theRobot.Place(placementRequest);
                 _theRobot.Move();
                 _theRobot.Report();
                 var report = sw.ToString();
@@ -58,10 +77,16 @@ namespace UnitTestProject1
         [TestMethod]
         public void MoveLeftFromFacingNorthShouldBeWest()
         {
+            placementRequest = new PlacementRequest
+            {
+                X = 4, 
+                Y = 4, 
+                F = RobotDirection.NORTH 
+            };
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                _theRobot.Place(new PlacementRequest { X = 4, Y = 4, F = RobotDirection.NORTH });
+                _theRobot.Place(placementRequest);
                 _theRobot.TurnLeft();
                 _theRobot.Report();
                 var report = sw.ToString();
@@ -73,10 +98,17 @@ namespace UnitTestProject1
         [DataTestMethod]
         public void MoveLeftManyTimesShouldNotBeInvalid(int x, int y, RobotDirection f)
         {
+            placementRequest = new PlacementRequest
+            {
+                X = x,
+                Y = y,
+                F = f
+            };
+
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                _theRobot.Place(new PlacementRequest { X = x, Y = y, F = f });
+                _theRobot.Place(placementRequest);
                 _theRobot.TurnLeft();
                 _theRobot.TurnLeft();
                 _theRobot.TurnLeft();
@@ -92,10 +124,16 @@ namespace UnitTestProject1
         [DataTestMethod]
         public void MoveRighttManyTimesShouldNotBeInvalid(int x, int y, RobotDirection f)
         {
+            placementRequest = new PlacementRequest
+            {
+                X = x,
+                Y = y,
+                F = f
+            };
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                _theRobot.Place(new PlacementRequest { X = x, Y = y, F = f });
+                _theRobot.Place(placementRequest);
                 _theRobot.TurnRight();
                 _theRobot.TurnRight();
                 _theRobot.TurnRight();
@@ -113,10 +151,16 @@ namespace UnitTestProject1
         [TestMethod]
         public void MoveRightFromFacingNorthShouldBeEast()
         {
+            placementRequest = new PlacementRequest
+            {
+                X = 4,
+                Y = 4,
+                F = RobotDirection.NORTH
+            };
             using (StringWriter sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                _theRobot.Place(new PlacementRequest { X = 4, Y = 4, F = RobotDirection.NORTH });
+                _theRobot.Place(placementRequest);
                 _theRobot.TurnRight();
                 _theRobot.Report();
                 var report = sw.ToString();
@@ -130,10 +174,16 @@ namespace UnitTestProject1
         [TestMethod]
         public void ReportShouldOutputIfPlacementOccurred()
         {
+            placementRequest = new PlacementRequest
+            {
+                X = 4,
+                Y = 4,
+                F = RobotDirection.NORTH
+            };
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                _theRobot.Place(new PlacementRequest { X = 4, Y = 4, F = RobotDirection.NORTH });
+                _theRobot.Place(placementRequest);
                 _theRobot.Move();
                 _theRobot.Report();
                 var report = sw.ToString();
@@ -144,7 +194,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void HandleCommandShouldThrowNullExceptionIfCommandIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => _robotCommandHandler.HandleCommand(null));
+            Assert.ThrowsException<ArgumentNullException>(() => _robotCommandHandler.ExecuteCommand(null));
         }
 
     }

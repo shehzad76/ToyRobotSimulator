@@ -13,7 +13,7 @@ namespace TheToyRobotSimulator
         /// <summary>
         /// Sets _x, _y and _f values if request contains valid data and returns a bool to indicate success or failure 
         /// </summary>
-        public bool Place(PlacementRequest req)
+        public bool Place(IPlacementRequest req)
         {
             var placed = false;
 

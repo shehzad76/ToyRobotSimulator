@@ -4,6 +4,8 @@ namespace TheToyRobotSimulator
 {
     public interface IRobotInteractiveCommandHandler
     {
-        bool HandleCommand(string[] command);
+        bool ExecuteCommand(string[] command);
+
+        bool CanUseCaseInsensitiveRobotCommands();
     }
 }

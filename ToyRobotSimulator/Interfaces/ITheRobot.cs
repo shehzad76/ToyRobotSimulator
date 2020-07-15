@@ -2,7 +2,7 @@ namespace TheToyRobotSimulator
 {
     public interface ITheRobot
     {
-        bool Place(PlacementRequest req);
+        bool Place(IPlacementRequest req);
 
         void Move();
 
