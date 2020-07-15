@@ -1,6 +1,7 @@
 # ToyRobotSimulator is a .Net Core Console Application
 # The simulator works on given commands (interactively) only as Commands input from the given file is not ready yet.
-# Following are the Steps to execute the application  from Console after cloning this repository locally :
+# After cloning this repository locally, please PUBLISH this in RELEASE Mode.
+# Following are the Steps to execute the application  from Console :
 
 1. Go to folder location : ToyRobotSimulator\bin\Release\netcoreapp2.2\publish
 2. Write any of the below commands to start execution of ToyRobotSimulator:

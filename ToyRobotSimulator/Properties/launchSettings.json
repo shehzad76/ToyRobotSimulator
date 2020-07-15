@@ -1,8 +1,7 @@
 {
   "profiles": {
     "TheToyRobotSimulator": {
-      "commandName": "Project",
-      "commandLineArgs": "-nocase -help"
+      "commandName": "Project"
     }
   }
 }
